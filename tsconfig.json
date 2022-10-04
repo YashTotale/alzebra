@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "rootDir": "src",
+    "module": "CommonJS",
+    "target": "ES5",
+    "lib": ["ES6", "DOM", "ES2016", "ES2017", "ESNext"],
+    "sourceMap": true,
+    "declaration": true,
+    "allowJs": false,
+    "moduleResolution": "node",
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true
+  },
+  "include": ["src"],
+  "files": ["node_modules/jest-extended/types/index.d.ts"]
+}

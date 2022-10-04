@@ -1,0 +1,20 @@
+{
+  "cSpell.words": ["Alzebra", "Eliminassian"],
+  "files.associations": {
+    ".markdownlintignore": "ignore",
+    ".markdownlintrc": "json",
+
+    ".prettierignore": "ignore",
+    ".prettierc": "json",
+
+    ".eslintignore": "ignore",
+    ".eslintrc": "json",
+
+    ".lintstagedrc": "json",
+    ".linkinatorrc": "json",
+    ".all-contributorsrc": "json"
+  },
+  "markdown.extension.toc.omittedFromToc": {
+    "README.md": ["## Table of Contents"]
+  }
+}

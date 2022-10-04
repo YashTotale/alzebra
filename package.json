@@ -1,0 +1,90 @@
+{
+  "name": "alzebra",
+  "version": "0.0.0",
+  "description": "The All-In-One Herd of Linear Algebra Functions",
+  "license": "MIT",
+  "author": {
+    "name": "Yash Totale",
+    "url": "https://yashtotale.dev/"
+  },
+  "repository": "https://github.com/YashTotale/alzebra",
+  "bugs": {
+    "url": "https://github.com/YashTotale/alzebra/issues"
+  },
+  "keywords": [
+    "gaussian",
+    "elimination",
+    "gaussian elimination",
+    "linear",
+    "algebra",
+    "linear algebra",
+    "math",
+    "matrix"
+  ],
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "postinstall": "husky install",
+    "preversion": "bash scripts/version/pre.sh",
+    "version:patch": "npm version patch -m 'v%s'",
+    "version:minor": "npm version minor -m 'v%s'",
+    "version:major": "npm version major -m 'v%s'",
+    "postversion": "bash scripts/version/post.sh",
+    "prepublishOnly": "bash scripts/publish/pre.sh",
+    "publish:npm": "npm publish --registry https://registry.npmjs.org/",
+    "prepublish:gh": "IS_PRE_PUBLISH=true ts-node scripts/publish/pre-post-gh.ts",
+    "publish:gh": "npm publish --registry https://npm.pkg.github.com/",
+    "postpublish:gh": "IS_PRE_PUBLISH=false ts-node scripts/publish/pre-post-gh.ts",
+    "postpublish": "bash scripts/publish/post.sh",
+    "build": "sh scripts/build/index.sh",
+    "postbuild": "ts-node scripts/build/post.ts",
+    "changelog-to-releases": "ts-node scripts/changelog-to-releases.ts",
+    "test": "jest",
+    "test:watch": "npm test -- --watch",
+    "test:coverage": "npm test -- --coverage",
+    "lint": "npx lint-check",
+    "lint:staged": "lint-staged",
+    "check-links": "bash scripts/check-links.sh",
+    "contributors:add": "all-contributors add",
+    "contributors:generate": "all-contributors generate",
+    "contributors:check": "all-contributors check"
+  },
+  "devDependencies": {
+    "@octokit/rest": "^19.0.4",
+    "@types/big.js": "^6.1.6",
+    "@types/jest": "^29.0.0",
+    "@types/jest-expect-message": "^1.0.4",
+    "@types/number-to-words": "^1.2.1",
+    "@types/recursive-readdir": "^2.2.1",
+    "@typescript-eslint/eslint-plugin": "^5.37.0",
+    "@typescript-eslint/parser": "^5.37.0",
+    "@vercel/ncc": "^0.34.0",
+    "all-contributors-cli": "^6.20.4",
+    "dotenv-safe": "^8.2.0",
+    "eslint": "^8.23.1",
+    "eslint-plugin-react": "^7.31.8",
+    "eslint-plugin-tsdoc": "^0.2.17",
+    "husky": "^8.0.1",
+    "jest": "^28.1.3",
+    "jest-expect-message": "^1.1.2",
+    "jest-extended": "^3.1.0",
+    "linkinator": "^4.0.3",
+    "lint-staged": "^13.0.3",
+    "markdownlint-cli": "^0.32.2",
+    "number-to-words": "^1.2.4",
+    "pinst": "^3.0.0",
+    "prettier": "^2.7.1",
+    "recursive-readdir": "^2.2.2",
+    "ts-jest": "^28.0.8",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.2"
+  },
+  "dependencies": {
+    "big.js": "^6.2.1"
+  }
+}

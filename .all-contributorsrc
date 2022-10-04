@@ -1,0 +1,33 @@
+{
+  "projectName": "alzebra",
+  "projectOwner": "YashTotale",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "commitConvention": "none",
+  "types": {
+    "doc": {
+      "symbol": "📖",
+      "description": "Documentation",
+      "link": "https://github.com/<%= options.projectOwner %>/<%= options.projectName %>/commits?author=<%= contributor.login %>"
+    }
+  },
+  "contributors": [
+    {
+      "login": "YashTotale",
+      "name": "Yash Totale",
+      "avatar_url": "https://avatars.githubusercontent.com/u/30784592?v=4",
+      "profile": "https://github.com/YashTotale",
+      "contributions": [
+        "code",
+        "ideas",
+        "doc"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7
+}

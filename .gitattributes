@@ -1,0 +1,11 @@
+.prettierrc linguist-language=JSON
+.eslintrc linguist-language=JSON
+.markdownlintrc linguist-language=JSON
+
+.prettierignore linguist-language=Ignore-List
+.eslintignore linguist-language=Ignore-List
+.markdownlintignore linguist-language=Ignore-List
+
+.lintstagedrc linguist-language=JSON
+.linkinatorrc linguist-language=JSON
+.all-contributorsrc linguist-language=JSON
