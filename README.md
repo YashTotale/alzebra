@@ -1,5 +1,5 @@
 <p align="center">
-    <a href="https://github.com/YashTotale/alzebra"><img src="https://raw.githubusercontent.com/YashTotale/alzebra/master/static/icon.png" alt="Alzebra" width="200"></img></a>
+    <img src="https://raw.githubusercontent.com/YashTotale/alzebra/master/static/icon.png" alt="Alzebra" width="200"></img>
 </p>
 <h1 align="center">Alzebra</h1>
 <p align="center">The All-In-One Herd of Linear Algebra Functions</p>
