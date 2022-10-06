@@ -7,10 +7,20 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/), and this 
 ## Table of Contents <!-- omit in toc -->
 
 - [Unreleased](#unreleased)
+- [[0.0.2] - (2022-09-17)](#002---2022-09-17)
+  - [Fixed](#fixed)
 - [[0.0.1] - (2022-09-17)](#001---2022-09-17)
   - [Added](#added)
 
 ## Unreleased
+
+---
+
+## [0.0.2] - (2022-09-17)
+
+### Fixed
+
+- Export types from main file
 
 ---
 
