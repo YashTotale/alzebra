@@ -1,7 +1,7 @@
 {
   "name": "alzebra",
   "version": "0.0.2",
-  "description": "The All-In-One Herd of Linear Algebra Functions",
+  "description": "An All-In-One Herd of Linear Algebra Functions",
   "license": "MIT",
   "author": {
     "name": "Yash Totale",
@@ -13,12 +13,13 @@
     "url": "https://github.com/YashTotale/alzebra/issues"
   },
   "keywords": [
-    "gaussian",
-    "elimination",
-    "gaussian elimination",
     "linear",
     "algebra",
     "linear algebra",
+    "gaussian",
+    "gauss-jordan",
+    "elimination",
+    "gaussian elimination",
     "math",
     "matrix"
   ],

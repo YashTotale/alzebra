@@ -9,7 +9,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: "Alzebra",
-  tagline: "The All-In-One Herd of Linear Algebra Functions",
+  tagline: "An All-In-One Herd of Linear Algebra Functions",
   url: "https://alzebra.yashtotale.dev",
   baseUrl: "/",
   onBrokenLinks: "throw",
