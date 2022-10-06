@@ -85,4 +85,5 @@ export class Alzebra {
   };
 }
 
+export * from "./types";
 export default Alzebra;
