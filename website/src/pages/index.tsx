@@ -10,7 +10,7 @@ import styles from "./index.module.css";
 const Hero: FC = () => {
   const { siteConfig } = useDocusaurusContext();
   return (
-    <header className={clsx("hero hero--primary", styles.heroBanner)}>
+    <header className={clsx("hero", styles.heroBanner)}>
       <div className="container">
         <img
           className={clsx(styles.heroBannerLogo)}
@@ -20,7 +20,7 @@ const Hero: FC = () => {
         <p className="hero__subtitle">{siteConfig.tagline}</p>
         <div className={styles.buttons}>
           <Link
-            className={clsx("button button--secondary button--lg")}
+            className={clsx("button button--primary button--lg")}
             to={useBaseUrl("docs/")}
           >
             Get Started&nbsp;&nbsp;→
