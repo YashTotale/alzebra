@@ -72,6 +72,16 @@ const config = {
             label: "Docs",
             position: "left",
           },
+          {
+            label: "NPM",
+            to: "https://www.npmjs.com/package/alzebra",
+            position: "right",
+          },
+          {
+            label: "GitHub",
+            to: "https://github.com/YashTotale/alzebra",
+            position: "right",
+          },
         ],
       },
       footer: {
