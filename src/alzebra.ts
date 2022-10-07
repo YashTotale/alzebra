@@ -13,7 +13,7 @@ import {
 
 export type EliminassianResult = {
   matrix: NumberMatrix;
-  result: NumberVector;
+  vector: NumberVector;
 };
 
 export class Alzebra {
@@ -31,27 +31,53 @@ export class Alzebra {
     this.matrix = Alzebra.bigNumMatrix(matrix);
   }
 
-  public eliminassian(result: NumberVector): EliminassianResult {
+  /**
+   * Gaussian Elimination (Solving Systems of Linear Equations)
+   * @param solutions - The solutions vector (b in Ax = b)
+   * @returns An object with the reduced matrix and reduced vector (x in Ax = b if there is a solution)
+   * @example
+   * ```javascript
+   * const matrix = [
+   *  [1, 1, 0],
+   *  [0, 1, 1],
+   *  [2, 1, 1],
+   * ];
+   *
+   * const solutions = [10, 15, 25];
+   * const resultObj = new Alzebra(matrix).eliminassian(solutions);
+   *
+   * // This is what the `resultObj` variable is
+   * const equivalentResultsObj = {
+   *  matrix: [
+   *    [1, 0, 0],
+   *    [0, 1, 0],
+   *    [0, 0, 1],
+   *  ],
+   *  vector: [5, 5, 10]
+   * }
+   * ```
+   */
+  public eliminassian(solutions: NumberVector): EliminassianResult {
     assert(
-      this.matrix.length === result.length,
+      this.matrix.length === solutions.length,
       "The number of values in the result vector must equal the number of rows in the Alzebra matrix"
     );
 
     const matrixCopy = Alzebra.copyBigMatrix(this.matrix);
-    const bigResult = Alzebra.bigNumVector(result);
+    const bigSolution = Alzebra.bigNumVector(solutions);
 
-    for (let i = 0; i < bigResult.length; i++) {
-      matrixCopy[i].push(bigResult[i]);
+    for (let i = 0; i < bigSolution.length; i++) {
+      matrixCopy[i].push(bigSolution[i]);
     }
 
     const solvedMatrix = new Eliminassian(matrixCopy).solve().numbered;
-    const solvedResult = solvedMatrix.map(
+    const solvedVector = solvedMatrix.map(
       (row) => row.splice(row.length - 1)[0]
     );
 
     return {
       matrix: solvedMatrix,
-      result: solvedResult,
+      vector: solvedVector,
     };
   }
 

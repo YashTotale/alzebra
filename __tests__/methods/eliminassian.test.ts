@@ -8,7 +8,7 @@ import { NumberMatrix, NumberVector } from "../../src/types";
 
 interface Test {
   matrix: NumberMatrix;
-  result: NumberVector;
+  solutions: NumberVector;
   output: EliminassianResult;
   only?: boolean; // Whether only this test should run (for debugging)
 }
@@ -21,7 +21,7 @@ const runner = (name: string, tests: Test[]) => {
       testFunc(title, () => {
         const alzebra = new Alzebra(t.matrix);
         const expected = t.output;
-        const actual = alzebra.eliminassian(t.result);
+        const actual = alzebra.eliminassian(t.solutions);
 
         expect(
           actual,
@@ -48,9 +48,9 @@ describe("Checks", () => {
 
 describe("Unique Solution", () => {
   runner("Works for 1x1 matrix", [
-    { matrix: [[1]], result: [1], output: { matrix: [[1]], result: [1] } },
-    { matrix: [[2]], result: [1], output: { matrix: [[1]], result: [0.5] } },
-    { matrix: [[0.5]], result: [1], output: { matrix: [[1]], result: [2] } },
+    { matrix: [[1]], solutions: [1], output: { matrix: [[1]], vector: [1] } },
+    { matrix: [[2]], solutions: [1], output: { matrix: [[1]], vector: [0.5] } },
+    { matrix: [[0.5]], solutions: [1], output: { matrix: [[1]], vector: [2] } },
   ]);
 
   runner("Works for 2x2 matrix", [
@@ -59,13 +59,13 @@ describe("Unique Solution", () => {
         [1, 0.5],
         [2, 2],
       ],
-      result: [1, -7.8],
+      solutions: [1, -7.8],
       output: {
         matrix: [
           [1, 0],
           [0, 1],
         ],
-        result: [5.9, -9.8],
+        vector: [5.9, -9.8],
       },
     },
   ]);
@@ -77,13 +77,13 @@ describe("Unique Solution", () => {
         [2, -4],
         [3, -2],
       ],
-      result: [4, 4, 8],
+      solutions: [4, 4, 8],
       output: {
         matrix: [
           [1, 0],
           [0, 1],
         ],
-        result: [3, 0.5],
+        vector: [3, 0.5],
       },
     },
   ]);
@@ -95,14 +95,14 @@ describe("Unique Solution", () => {
         [1, -1, 1],
         [2, 1, 1],
       ],
-      result: [1, -3, 0],
+      solutions: [1, -3, 0],
       output: {
         matrix: [
           [1, 0, 0],
           [0, 1, 0],
           [0, 0, 1],
         ],
-        result: [-0.5, 1.75, -0.75],
+        vector: [-0.5, 1.75, -0.75],
       },
     },
     {
@@ -111,14 +111,14 @@ describe("Unique Solution", () => {
         [0, -2, 1],
         [0, 0, 1],
       ],
-      result: [-10, -2, 6],
+      solutions: [-10, -2, 6],
       output: {
         matrix: [
           [1, 0, 0],
           [0, 1, 0],
           [0, 0, 1],
         ],
-        result: [2, 4, 6],
+        vector: [2, 4, 6],
       },
     },
     {
@@ -127,14 +127,14 @@ describe("Unique Solution", () => {
         [0, 0, 1],
         [2, 1, -3],
       ],
-      result: [-2, 6, -10],
+      solutions: [-2, 6, -10],
       output: {
         matrix: [
           [1, 0, 0],
           [0, 1, 0],
           [0, 0, 1],
         ],
-        result: [2, 4, 6],
+        vector: [2, 4, 6],
       },
     },
     {
@@ -143,14 +143,14 @@ describe("Unique Solution", () => {
         [1, 0, 1],
         [0.25, 0.5, 0],
       ],
-      result: [1.625, 3, 1.375],
+      solutions: [1.625, 3, 1.375],
       output: {
         matrix: [
           [1, 0, 0],
           [0, 1, 0],
           [0, 0, 1],
         ],
-        result: [1.5, 2, 1.5],
+        vector: [1.5, 2, 1.5],
       },
     },
     {
@@ -159,14 +159,14 @@ describe("Unique Solution", () => {
         [0, 1, 1],
         [2, 1, 1],
       ],
-      result: [10, 15, 25],
+      solutions: [10, 15, 25],
       output: {
         matrix: [
           [1, 0, 0],
           [0, 1, 0],
           [0, 0, 1],
         ],
-        result: [5, 5, 10],
+        vector: [5, 5, 10],
       },
     },
   ]);
@@ -179,14 +179,14 @@ describe("Unique Solution", () => {
         [0, 2, 1],
         [3, 16, 16],
       ],
-      result: [3, 1, 4, 7],
+      solutions: [3, 1, 4, 7],
       output: {
         matrix: [
           [1, 0, 0],
           [0, 1, 0],
           [0, 0, 1],
         ],
-        result: [-23, -0.75, 5.5],
+        vector: [-23, -0.75, 5.5],
       },
     },
   ]);
@@ -200,14 +200,14 @@ describe("Unique Solution", () => {
         [3, 16, 16],
         [2, -20, 10],
       ],
-      result: [3, 1, 4, 7, 24],
+      solutions: [3, 1, 4, 7, 24],
       output: {
         matrix: [
           [1, 0, 0],
           [0, 1, 0],
           [0, 0, 1],
         ],
-        result: [-23, -0.75, 5.5],
+        vector: [-23, -0.75, 5.5],
       },
     },
   ]);

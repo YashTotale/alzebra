@@ -57,18 +57,17 @@ const matrix = [
   [2, 1, 1],
 ];
 
-const result = [10, 15, 25];
-
-const solution = new Alzebra(input).eliminassian(result);
+const solutions = [10, 15, 25];
+const result = new Alzebra(matrix).eliminassian(solutions);
 
 /**
- solution = {
+ result = {
   matrix: [
     [1, 0, 0],
     [0, 1, 0],
     [0, 0, 1],
   ],
-  result: [5, 5, 10]
+  vector: [5, 5, 10]
  }
 */
 ```
