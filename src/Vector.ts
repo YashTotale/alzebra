@@ -11,6 +11,17 @@ class Vector {
     this.vector = values.map((val) => new Big(val));
   }
 
+  public subtract(other: Vector): Vector {
+    assert(
+      this.vector.length === other.vector.length,
+      "Both vectors must have the same length"
+    );
+    const subtractedValues = this.vector.map((value, i) =>
+      value.sub(other.vector[i])
+    );
+    return new Vector(subtractedValues);
+  }
+
   public magnitude(toNumber: false): Big;
   public magnitude(toNumber: true): number;
   public magnitude(toNumber: boolean): Big | number {

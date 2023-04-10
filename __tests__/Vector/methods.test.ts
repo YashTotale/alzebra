@@ -1,28 +1,54 @@
 // External Imports
 import Big from "big.js";
+import assert from "assert";
 
 // Internal Imports
 import Vector from "../../src/Vector";
 
 describe("Methods", () => {
-  test("Get Vector", () => {
-    const numArray = [1, 2, 3];
-    const bigNumArray = [Big(1), Big(2), Big(3)];
-    const vector = new Vector(numArray);
+  describe("Get Vector", () => {
+    test("toNumber is true", () => {
+      const array = [1, 2, 3];
+      const vector = new Vector(array);
 
-    const returnedNumArray = vector.getVector(true);
-    const returnedBigNumArray = vector.getVector(false);
-    expect(returnedNumArray).toEqual(numArray);
-    expect(returnedBigNumArray).toEqual(bigNumArray);
+      const returnedArray = vector.getVector(true);
+      expect(returnedArray).toEqual(array);
 
-    returnedNumArray.push(1);
-    returnedBigNumArray.push(Big(1));
-    const numArrayAgain = vector.getVector(true);
-    const bigNumArrayAgain = vector.getVector(false);
+      returnedArray.push(1);
+      const returnedArrayAgain = vector.getVector(true);
 
-    // Checks that a copy was returned both times, not the original
-    expect(returnedNumArray).not.toEqual(numArrayAgain);
-    expect(returnedBigNumArray).not.toEqual(bigNumArrayAgain);
+      // Checks that a copy was returned both times, not the original
+      expect(returnedArray).not.toEqual(returnedArrayAgain);
+    });
+
+    test("toNumber is false", () => {
+      const array = [Big(1), Big(2), Big(3)];
+      const vector = new Vector(array);
+
+      const returnedArray = vector.getVector(false);
+      expect(returnedArray).toEqual(array);
+
+      returnedArray.push(Big(1));
+      const returnedArrayAgain = vector.getVector(false);
+
+      // Checks that a copy was returned both times, not the original
+      expect(returnedArray).not.toEqual(returnedArrayAgain);
+    });
+  });
+
+  describe("Subtract", () => {
+    test("Checks for same length", () => {
+      const vector1 = new Vector([1, 2, 3]);
+      const vector2 = new Vector([1, 2]);
+
+      const doFaultySubtract = () => vector1.subtract(vector2);
+      expect(doFaultySubtract).toThrowError(assert.AssertionError);
+    });
+
+    const vector1 = new Vector([3, 2, 1]);
+    const vector2 = new Vector([1, 2, 3]);
+    const subtracted = new Vector([2, 0, -2]);
+    expect(vector1.subtract(vector2)).toEqual(subtracted);
   });
 
   test("Magnitude", () => {
