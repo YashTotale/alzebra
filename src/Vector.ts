@@ -4,6 +4,7 @@ import Big, { BigSource } from "big.js";
 
 class Vector {
   private vector: Big[];
+  private isZero: boolean | undefined; // For caching the result of isZeroVector
 
   constructor(values: BigSource[]) {
     assert(Array.isArray(values), "values must be an array");
@@ -29,9 +30,9 @@ class Vector {
       this.vector.length === other.vector.length,
       "Both vectors must have the same length"
     );
-    const subtractedValues = this.vector.map((value, i) =>
-      value.sub(other.vector[i])
-    );
+    const subtractedValues = this.vector.map((value, i) => {
+      return value.sub(other.vector[i]);
+    });
     return new Vector(subtractedValues);
   }
 
@@ -51,10 +52,9 @@ class Vector {
 
   public innerProduct(other: Vector): Big {
     assert(other instanceof Vector, "other must be a Vector");
-    return this.vector.reduce(
-      (sum, value, i) => sum.plus(value.times(other.vector[i])),
-      Big(0)
-    );
+    return this.vector.reduce((sum, value, i) => {
+      return sum.plus(value.times(other.vector[i]));
+    }, Big(0));
   }
 
   public projectionOnto(other: Vector): Vector {
@@ -64,7 +64,10 @@ class Vector {
   }
 
   public isZeroVector(): boolean {
-    return this.vector.every((value) => value.eq(0));
+    if (typeof this.isZero !== "boolean") {
+      this.isZero = this.vector.every((value) => value.eq(0));
+    }
+    return this.isZero;
   }
 }
 
