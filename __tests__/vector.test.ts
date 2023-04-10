@@ -1,5 +1,6 @@
 // External Imports
 import assert from "assert";
+import Big from "big.js";
 
 // Internal Imports
 import Vector from "../src/Vector";
@@ -34,34 +35,48 @@ describe("Vector Class", () => {
   });
 
   interface VectorInformation {
-    vector: Vector;
+    vectorArray: number[];
+    vectorInstance: Vector;
     magnitude: number;
   }
   const vectors: VectorInformation[] = [
     {
-      vector: new Vector([]),
+      vectorArray: [],
+      vectorInstance: new Vector([]),
       magnitude: 0,
     },
     {
-      vector: new Vector([1]),
+      vectorArray: [1],
+      vectorInstance: new Vector([1]),
       magnitude: 1,
     },
     {
-      vector: new Vector([2, 5]),
+      vectorArray: [2, 5],
+      vectorInstance: new Vector([2, 5]),
       magnitude: 5.385164807134504,
     },
     {
-      vector: new Vector([3, 4]),
+      vectorArray: [3, 4],
+      vectorInstance: new Vector([3, 4]),
       magnitude: 5,
     },
     {
-      vector: new Vector([1, 2, 3]),
+      vectorArray: [1, 2, 3],
+      vectorInstance: new Vector([1, 2, 3]),
       magnitude: 3.7416573867739413,
     },
   ];
   describe("Methods", () => {
     testForEach("Magnitude", vectors, (info) => {
-      expect(info.vector.magnitude(true)).toBe(info.magnitude);
+      expect(info.vectorInstance.magnitude(true)).toBe(info.magnitude);
+    });
+
+    testForEach("Get Vector", vectors, (info) => {
+      const returnedVector = info.vectorInstance.getVector(true);
+      expect(returnedVector).toEqual(info.vectorArray);
+      returnedVector.push(1);
+      const getAgain = info.vectorInstance.getVector(true);
+      expect(returnedVector).not.toEqual(getAgain); // Checks that a copy was returned both times, not the original
     });
   });
 });
