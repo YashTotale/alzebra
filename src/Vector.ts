@@ -11,6 +11,12 @@ class Vector {
     this.vector = values.map((val) => new Big(val));
   }
 
+  public getVector(toNumber: false): Big[];
+  public getVector(toNumber: true): number[];
+  public getVector(toNumber: boolean): (Big | number)[] {
+    return this.vector.map((value) => (toNumber ? value.toNumber() : value));
+  }
+
   public subtract(other: Vector): Vector {
     assert(
       this.vector.length === other.vector.length,
@@ -22,21 +28,19 @@ class Vector {
     return new Vector(subtractedValues);
   }
 
-  public magnitude(toNumber: false): Big;
-  public magnitude(toNumber: true): number;
-  public magnitude(toNumber: boolean): Big | number {
+  public magnitude(): Big {
     const sumOfSquares = this.vector.reduce(
       (sumOfSquares, value) => sumOfSquares.plus(value.times(value)),
       new Big(0)
     );
-    const magnitude = sumOfSquares.sqrt();
-    return toNumber ? magnitude.toNumber() : magnitude;
+    return sumOfSquares.sqrt();
   }
 
-  public getVector(toNumber: false): Big[];
-  public getVector(toNumber: true): number[];
-  public getVector(toNumber: boolean): (Big | number)[] {
-    return this.vector.map((value) => (toNumber ? value.toNumber() : value));
+  public innerProduct(other: Vector) {
+    return this.vector.reduce(
+      (sum, value, i) => sum.plus(value.mul(other.vector[i])),
+      Big(0)
+    );
   }
 }
 

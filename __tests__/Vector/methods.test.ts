@@ -55,6 +55,13 @@ describe("Methods", () => {
     const array = [3, 4];
     const vector = new Vector(array);
 
-    expect(vector.magnitude(true)).toBe(5);
+    expect(vector.magnitude()).toEqual(Big(5));
+  });
+
+  test("Inner Product", () => {
+    const vector1 = new Vector([3, 4]);
+    const vector2 = new Vector([4, 7]);
+
+    expect(vector1.innerProduct(vector2)).toEqual(Big(40));
   });
 });
