@@ -63,6 +63,15 @@ class Vector {
     return other.scale(scaleFactor);
   }
 
+  public equals(other: Vector): boolean {
+    assert(other instanceof Vector, "other must be a Vector");
+    if (other.vector.length !== this.vector.length) return false;
+    return this.vector.every((value, i) => {
+      const otherValue = other.vector[i];
+      return value.eq(otherValue);
+    });
+  }
+
   public isZeroVector(): boolean {
     if (typeof this.isZero !== "boolean") {
       this.isZero = this.vector.every((value) => value.eq(0));

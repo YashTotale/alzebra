@@ -58,7 +58,7 @@ describe("Methods", () => {
     test("Works", () => {
       const vector = new Vector([1, 2, -3]);
       const scaled = new Vector([3, 6, -9]);
-      expect(vector.scale(3)).toEqual(scaled);
+      expect(vector.scale(3).equals(scaled)).toBeTrue();
     });
   });
 
@@ -81,7 +81,7 @@ describe("Methods", () => {
       const vector1 = new Vector([3, 2, 1]);
       const vector2 = new Vector([1, 2, 3]);
       const subtracted = new Vector([2, 0, -2]);
-      expect(vector1.subtract(vector2)).toEqual(subtracted);
+      expect(vector1.subtract(vector2).equals(subtracted)).toBeTrue();
     });
   });
 
@@ -102,7 +102,7 @@ describe("Methods", () => {
         Big(3).div(Big(5)),
         Big(4).div(Big(5)),
       ]);
-      expect(vector.normalize()).toEqual(normalizedVector);
+      expect(vector.normalize().equals(normalizedVector)).toBeTrue();
     });
   });
 
@@ -134,7 +134,31 @@ describe("Methods", () => {
         Big(14).div(Big(5)),
         Big(7).div(Big(5)),
       ]);
-      expect(vector1.projectionOnto(vector2)).toEqual(projectionOfOneOntoTwo);
+      expect(
+        vector1.projectionOnto(vector2).equals(projectionOfOneOntoTwo)
+      ).toBeTrue();
+    });
+  });
+
+  describe("Equals", () => {
+    describe("Not Equal", () => {
+      test("Different Length", () => {
+        const vector1 = new Vector([3, 1]);
+        const vector2 = new Vector([4, 2, 4]);
+        expect(vector1.equals(vector2)).toBeFalse();
+      });
+
+      test("Different Values", () => {
+        const vector1 = new Vector([4, 2, 5]);
+        const vector2 = new Vector([4, 2, 4]);
+        expect(vector1.equals(vector2)).toBeFalse();
+      });
+    });
+
+    test("Equal", () => {
+      const vector1 = new Vector([4, 2, 5.2]);
+      const vector2 = new Vector([4, 2, 5.2]);
+      expect(vector1.equals(vector2)).toBeTrue();
     });
   });
 
