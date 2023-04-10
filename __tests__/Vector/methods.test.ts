@@ -82,9 +82,17 @@ describe("Methods", () => {
   });
 
   test("Magnitude", () => {
-    const array = [3, 4];
-    const vector = new Vector(array);
+    const vector = new Vector([3, 4]);
     expect(vector.magnitude()).toEqual(Big(5));
+  });
+
+  test("Normalize", () => {
+    const vector = new Vector([3, 4]);
+    const normalizedVector = new Vector([
+      Big(3).div(Big(5)),
+      Big(4).div(Big(5)),
+    ]);
+    expect(vector.normalize()).toEqual(normalizedVector);
   });
 
   describe("Inner Product", () => {

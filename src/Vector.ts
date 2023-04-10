@@ -40,6 +40,10 @@ class Vector {
     return innerProductOfSelf.sqrt();
   }
 
+  public normalize(): Vector {
+    return this.scale(Big(1).div(this.magnitude()));
+  }
+
   public innerProduct(other: Vector): Big {
     assert(other instanceof Vector, "other must be a Vector");
     return this.vector.reduce(
