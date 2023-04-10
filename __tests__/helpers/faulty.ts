@@ -4,6 +4,15 @@ import { BigSource } from "big.js";
 // Internal Imports
 import Vector from "../../src/Vector";
 
+export const faultyBooleans = [
+  "faulty",
+  123,
+  null,
+  [],
+  {},
+  () => null,
+] as boolean[];
+
 export const faultyArrays = [
   "faulty",
   123,
@@ -24,9 +33,10 @@ export const faultyVectors = [
 ] as Vector[];
 
 export const faultyBigSources = [
-  true,
-  {},
   "faulty",
+  true,
   null,
+  [],
+  {},
   () => null,
 ] as BigSource[];

@@ -4,9 +4,17 @@ import assert from "assert";
 
 // Internal Imports
 import Vector from "../../src/Vector";
+import { testForEach } from "../helpers";
+import { faultyBooleans } from "../helpers/faulty";
 
 describe("Methods", () => {
   describe("Get Vector", () => {
+    testForEach("Prevents faulty toNumber", faultyBooleans, (x) => {
+      const vector = new Vector([]);
+      const useFaultyArray = () => vector.getVector(x);
+      expect(useFaultyArray).toThrowError(assert.AssertionError);
+    });
+
     test("toNumber is true", () => {
       const array = [1, 2, 3];
       const vector = new Vector(array);
