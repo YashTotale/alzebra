@@ -53,6 +53,10 @@ class Vector {
     const scaleFactor = this.innerProduct(other).div(other.innerProduct(other));
     return other.scale(scaleFactor);
   }
+
+  public isZeroVector(): boolean {
+    return this.vector.every((value) => value.eq(0));
+  }
 }
 
 export default Vector;

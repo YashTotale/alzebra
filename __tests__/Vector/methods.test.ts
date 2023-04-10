@@ -114,4 +114,16 @@ describe("Methods", () => {
     ]);
     expect(vector1.projectionOnto(vector2)).toEqual(projectionOfOneOntoTwo);
   });
+
+  describe("Is Zero Vector", () => {
+    test("Is", () => {
+      const vector = new Vector([0, 0]);
+      expect(vector.isZeroVector()).toBeTrue();
+    });
+
+    test("Is Not", () => {
+      const vector = new Vector([0, 0, 2]);
+      expect(vector.isZeroVector()).toBeFalse();
+    });
+  });
 });
