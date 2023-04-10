@@ -3,7 +3,7 @@ import assert from "assert";
 
 // Internal Imports
 import Vector from "../../src/Vector";
-import { testForEach } from "../helpers";
+import { faultyArrays, faultyBigSources, testForEach } from "../helpers";
 
 describe("Vector Class", () => {
   test("Vector is a function", () => {
@@ -18,18 +18,14 @@ describe("Vector Class", () => {
   });
 
   describe("Constructor", () => {
-    const faultyArrays = ["faulty", 123, true, {}, () => null];
     testForEach("Prevents faulty arrays", faultyArrays, (x) => {
-      // @ts-expect-error Forcing faulty array
-      const createFaultyArray = () => new Vector(x);
-      expect(createFaultyArray).toThrowError(assert.AssertionError);
+      const useFaultyArray = () => new Vector(x);
+      expect(useFaultyArray).toThrowError(assert.AssertionError);
     });
 
-    const faultyValues = [true, {}, "faulty", () => null];
-    testForEach("Prevents faulty values", faultyValues, (x) => {
-      // @ts-expect-error Forcing faulty value
-      const createFaultyValue = () => new Vector([x]);
-      expect(createFaultyValue).toThrowError();
+    testForEach("Prevents faulty big sources", faultyBigSources, (x) => {
+      const useFaultyValue = () => new Vector([x]);
+      expect(useFaultyValue).toThrowError();
     });
   });
 });
