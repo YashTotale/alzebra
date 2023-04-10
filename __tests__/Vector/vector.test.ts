@@ -3,7 +3,8 @@ import assert from "assert";
 
 // Internal Imports
 import Vector from "../../src/Vector";
-import { faultyArrays, faultyBigSources, testForEach } from "../helpers";
+import { testForEach } from "../helpers";
+import { faultyArrays, faultyBigSources } from "../helpers/faulty";
 
 describe("Vector Class", () => {
   test("Vector is a function", () => {
