@@ -16,7 +16,11 @@ class Vector {
   public getVector(toNumber: boolean): (Big | number)[];
   public getVector(toNumber: boolean): (Big | number)[] {
     assert(typeof toNumber === "boolean", "toNumber must be a boolean");
-    return this.vector.map((value) => (toNumber ? value.toNumber() : value));
+    return this.vector.map((value) =>
+      toNumber
+        ? value.round(3).toNumber() + 0 // Add 0 to avoid -0
+        : value
+    );
   }
 
   public scale(factor: BigSource) {

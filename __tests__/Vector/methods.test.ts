@@ -4,6 +4,7 @@ import assert from "assert";
 
 // Internal Imports
 import Vector from "../../src/Vector";
+import { vectorsShouldEqual } from "./helpers";
 import { testForEach } from "../helpers";
 import {
   faultyBigSources,
@@ -58,7 +59,7 @@ describe("Methods", () => {
     test("Works", () => {
       const vector = new Vector([1, 2, -3]);
       const scaled = new Vector([3, 6, -9]);
-      expect(vector.scale(3).equals(scaled)).toBeTrue();
+      vectorsShouldEqual(vector.scale(3), scaled);
     });
   });
 
@@ -81,7 +82,7 @@ describe("Methods", () => {
       const vector1 = new Vector([3, 2, 1]);
       const vector2 = new Vector([1, 2, 3]);
       const subtracted = new Vector([2, 0, -2]);
-      expect(vector1.subtract(vector2).equals(subtracted)).toBeTrue();
+      vectorsShouldEqual(vector1.subtract(vector2), subtracted);
     });
   });
 
@@ -102,7 +103,7 @@ describe("Methods", () => {
         Big(3).div(Big(5)),
         Big(4).div(Big(5)),
       ]);
-      expect(vector.normalize().equals(normalizedVector)).toBeTrue();
+      vectorsShouldEqual(vector.normalize(), normalizedVector);
     });
   });
 
@@ -134,9 +135,10 @@ describe("Methods", () => {
         Big(14).div(Big(5)),
         Big(7).div(Big(5)),
       ]);
-      expect(
-        vector1.projectionOnto(vector2).equals(projectionOfOneOntoTwo)
-      ).toBeTrue();
+      vectorsShouldEqual(
+        vector1.projectionOnto(vector2),
+        projectionOfOneOntoTwo
+      );
     });
   });
 
