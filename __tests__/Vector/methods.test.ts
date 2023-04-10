@@ -55,9 +55,11 @@ describe("Methods", () => {
       expect(useFaultyFactor).toThrowError();
     });
 
-    const vector = new Vector([1, 2, -3]);
-    const scaled = new Vector([3, 6, -9]);
-    expect(vector.scale(3)).toEqual(scaled);
+    test("Works", () => {
+      const vector = new Vector([1, 2, -3]);
+      const scaled = new Vector([3, 6, -9]);
+      expect(vector.scale(3)).toEqual(scaled);
+    });
   });
 
   describe("Subtract", () => {
@@ -75,10 +77,12 @@ describe("Methods", () => {
       expect(doFaultySubtract).toThrowError(assert.AssertionError);
     });
 
-    const vector1 = new Vector([3, 2, 1]);
-    const vector2 = new Vector([1, 2, 3]);
-    const subtracted = new Vector([2, 0, -2]);
-    expect(vector1.subtract(vector2)).toEqual(subtracted);
+    test("Works", () => {
+      const vector1 = new Vector([3, 2, 1]);
+      const vector2 = new Vector([1, 2, 3]);
+      const subtracted = new Vector([2, 0, -2]);
+      expect(vector1.subtract(vector2)).toEqual(subtracted);
+    });
   });
 
   test("Magnitude", () => {
@@ -86,13 +90,20 @@ describe("Methods", () => {
     expect(vector.magnitude()).toEqual(Big(5));
   });
 
-  test("Normalize", () => {
-    const vector = new Vector([3, 4]);
-    const normalizedVector = new Vector([
-      Big(3).div(Big(5)),
-      Big(4).div(Big(5)),
-    ]);
-    expect(vector.normalize()).toEqual(normalizedVector);
+  describe("Normalize", () => {
+    test("Zero Vector", () => {
+      const vector = new Vector([0, 0]);
+      expect(vector.normalize()).toEqual(vector);
+    });
+
+    test("Non-zero Vector", () => {
+      const vector = new Vector([3, 4]);
+      const normalizedVector = new Vector([
+        Big(3).div(Big(5)),
+        Big(4).div(Big(5)),
+      ]);
+      expect(vector.normalize()).toEqual(normalizedVector);
+    });
   });
 
   describe("Inner Product", () => {
@@ -102,9 +113,11 @@ describe("Methods", () => {
       expect(useFaultyVector).toThrowError();
     });
 
-    const vector1 = new Vector([3, 4]);
-    const vector2 = new Vector([4, 7]);
-    expect(vector1.innerProduct(vector2)).toEqual(Big(40));
+    test("Works", () => {
+      const vector1 = new Vector([3, 4]);
+      const vector2 = new Vector([4, 7]);
+      expect(vector1.innerProduct(vector2)).toEqual(Big(40));
+    });
   });
 
   describe("Projection Onto", () => {
@@ -114,13 +127,15 @@ describe("Methods", () => {
       expect(useFaultyVector).toThrowError();
     });
 
-    const vector1 = new Vector([3, 1]);
-    const vector2 = new Vector([4, 2]);
-    const projectionOfOneOntoTwo = new Vector([
-      Big(14).div(Big(5)),
-      Big(7).div(Big(5)),
-    ]);
-    expect(vector1.projectionOnto(vector2)).toEqual(projectionOfOneOntoTwo);
+    test("Works", () => {
+      const vector1 = new Vector([3, 1]);
+      const vector2 = new Vector([4, 2]);
+      const projectionOfOneOntoTwo = new Vector([
+        Big(14).div(Big(5)),
+        Big(7).div(Big(5)),
+      ]);
+      expect(vector1.projectionOnto(vector2)).toEqual(projectionOfOneOntoTwo);
+    });
   });
 
   describe("Is Zero Vector", () => {

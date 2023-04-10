@@ -41,7 +41,12 @@ class Vector {
   }
 
   public normalize(): Vector {
-    return this.scale(Big(1).div(this.magnitude()));
+    const magnitude = this.magnitude();
+    if (magnitude.eq(0)) {
+      return this;
+    } else {
+      return this.scale(Big(1).div(this.magnitude()));
+    }
   }
 
   public innerProduct(other: Vector): Big {
