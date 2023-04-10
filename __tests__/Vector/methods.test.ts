@@ -5,14 +5,18 @@ import assert from "assert";
 // Internal Imports
 import Vector from "../../src/Vector";
 import { testForEach } from "../helpers";
-import { faultyBooleans } from "../helpers/faulty";
+import {
+  faultyBigSources,
+  faultyBooleans,
+  faultyVectors,
+} from "../helpers/faulty";
 
 describe("Methods", () => {
   describe("Get Vector", () => {
     testForEach("Prevents faulty toNumber", faultyBooleans, (x) => {
       const vector = new Vector([]);
-      const useFaultyArray = () => vector.getVector(x);
-      expect(useFaultyArray).toThrowError(assert.AssertionError);
+      const useFaultyToNumber = () => vector.getVector(x);
+      expect(useFaultyToNumber).toThrowError(assert.AssertionError);
     });
 
     test("toNumber is true", () => {
@@ -44,7 +48,25 @@ describe("Methods", () => {
     });
   });
 
+  describe("Scale", () => {
+    testForEach("Prevents faulty factor", faultyBigSources, (x) => {
+      const vector = new Vector([]);
+      const useFaultyFactor = () => vector.scale(x);
+      expect(useFaultyFactor).toThrowError();
+    });
+
+    const vector = new Vector([1, 2, -3]);
+    const scaled = new Vector([3, 6, -9]);
+    expect(vector.scale(3)).toEqual(scaled);
+  });
+
   describe("Subtract", () => {
+    testForEach("Prevents faulty vector", faultyVectors, (x) => {
+      const vector = new Vector([]);
+      const useFaultyVector = () => vector.subtract(x);
+      expect(useFaultyVector).toThrowError();
+    });
+
     test("Checks for same length", () => {
       const vector1 = new Vector([1, 2, 3]);
       const vector2 = new Vector([1, 2]);
@@ -62,14 +84,34 @@ describe("Methods", () => {
   test("Magnitude", () => {
     const array = [3, 4];
     const vector = new Vector(array);
-
     expect(vector.magnitude()).toEqual(Big(5));
   });
 
-  test("Inner Product", () => {
+  describe("Inner Product", () => {
+    testForEach("Prevents faulty vector", faultyVectors, (x) => {
+      const vector = new Vector([]);
+      const useFaultyVector = () => vector.innerProduct(x);
+      expect(useFaultyVector).toThrowError();
+    });
+
     const vector1 = new Vector([3, 4]);
     const vector2 = new Vector([4, 7]);
-
     expect(vector1.innerProduct(vector2)).toEqual(Big(40));
+  });
+
+  describe("Projection Onto", () => {
+    testForEach("Prevents faulty vector", faultyVectors, (x) => {
+      const vector = new Vector([]);
+      const useFaultyVector = () => vector.projectionOnto(x);
+      expect(useFaultyVector).toThrowError();
+    });
+
+    const vector1 = new Vector([3, 1]);
+    const vector2 = new Vector([4, 2]);
+    const projectionOfOneOntoTwo = new Vector([
+      Big(14).div(Big(5)),
+      Big(7).div(Big(5)),
+    ]);
+    expect(vector1.projectionOnto(vector2)).toEqual(projectionOfOneOntoTwo);
   });
 });

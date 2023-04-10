@@ -19,12 +19,12 @@ describe("Vector Class", () => {
   });
 
   describe("Constructor", () => {
-    testForEach("Prevents faulty arrays", faultyArrays, (x) => {
+    testForEach("Prevents faulty values array", faultyArrays, (x) => {
       const useFaultyArray = () => new Vector(x);
       expect(useFaultyArray).toThrowError(assert.AssertionError);
     });
 
-    testForEach("Prevents faulty big sources", faultyBigSources, (x) => {
+    testForEach("Prevents faulty value", faultyBigSources, (x) => {
       const useFaultyValue = () => new Vector([x]);
       expect(useFaultyValue).toThrowError();
     });
