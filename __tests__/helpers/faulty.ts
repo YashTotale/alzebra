@@ -13,6 +13,15 @@ export const faultyBooleans = [
   () => null,
 ] as boolean[];
 
+export const faultyNumbers = [
+  "faulty",
+  true,
+  null,
+  [],
+  {},
+  () => null,
+] as number[];
+
 export const faultyArrays = [
   "faulty",
   123,

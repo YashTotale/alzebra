@@ -21,6 +21,21 @@ class Vector {
     );
   }
 
+  public getValue(position: number, toNumber: false): Big;
+  public getValue(position: number, toNumber: true): number;
+  public getValue(position: number, toNumber: boolean): Big | number;
+  public getValue(position: number, toNumber: boolean): Big | number {
+    assert(typeof position === "number", "position must be a number");
+    assert(position >= 0, "position must be greater than or equal to 0");
+    assert(
+      position < this.vector.length,
+      `position must be less than vector length (${this.vector.length})`
+    );
+    assert(typeof toNumber === "boolean", "toNumber must be a boolean");
+    const value = this.vector[position];
+    return toNumber ? Vector.bigToNumber(value) : value;
+  }
+
   public scale(factor: BigSource) {
     const scaleFactor = Big(factor);
     return new Vector(this.vector.map((value) => value.times(scaleFactor)));
