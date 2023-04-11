@@ -17,9 +17,7 @@ class Vector {
   public getVector(toNumber: boolean): (Big | number)[] {
     assert(typeof toNumber === "boolean", "toNumber must be a boolean");
     return this.vector.map((value) =>
-      toNumber
-        ? value.round(3).toNumber() + 0 // Add 0 to avoid -0
-        : value
+      toNumber ? Vector.bigToNumber(value) : value
     );
   }
 
@@ -67,6 +65,15 @@ class Vector {
     return other.scale(scaleFactor);
   }
 
+  public isZeroVector(): boolean {
+    if (typeof this.isZero !== "boolean") {
+      this.isZero = this.vector.every(
+        (value) => Vector.bigToNumber(value) === 0
+      );
+    }
+    return this.isZero;
+  }
+
   public equals(other: Vector): boolean {
     assert(other instanceof Vector, "other must be a Vector");
     if (other.vector.length !== this.vector.length) return false;
@@ -76,11 +83,12 @@ class Vector {
     });
   }
 
-  public isZeroVector(): boolean {
-    if (typeof this.isZero !== "boolean") {
-      this.isZero = this.vector.every((value) => value.eq(0));
-    }
-    return this.isZero;
+  public toString(): string {
+    return JSON.stringify(this.getVector(true));
+  }
+
+  private static bigToNumber(big: Big) {
+    return big.round(3).toNumber() + 0; // Add 0 to avoid -0
   }
 }
 
