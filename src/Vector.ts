@@ -31,6 +31,7 @@ class Vector {
     return Vector.bigToNumber(this.vector[position]);
   }
 
+  @Memoize()
   private checkPosition(position: number) {
     assert(typeof position === "number", "position must be a number");
     assert(position >= 0, "position must be greater than or equal to 0");
@@ -40,11 +41,13 @@ class Vector {
     );
   }
 
+  @Memoize()
   public scale(factor: BigSource) {
     const scaleFactor = Big(factor);
     return new Vector(this.vector.map((value) => value.times(scaleFactor)));
   }
 
+  @Memoize((v: Vector) => v.toString())
   public subtract(other: Vector): Vector {
     assert(other instanceof Vector, "other must be a Vector");
     assert(
@@ -57,11 +60,13 @@ class Vector {
     return new Vector(subtractedValues);
   }
 
+  @Memoize()
   public magnitude(): Big {
     const innerProductOfSelf = this.innerProduct(this);
     return innerProductOfSelf.sqrt();
   }
 
+  @Memoize()
   public normalize(): Vector {
     const magnitude = this.magnitude();
     if (magnitude.eq(0)) {
@@ -71,6 +76,7 @@ class Vector {
     }
   }
 
+  @Memoize((v: Vector) => v.toString())
   public innerProduct(other: Vector): Big {
     assert(other instanceof Vector, "other must be a Vector");
     return this.vector.reduce((sum, value, i) => {
@@ -78,6 +84,7 @@ class Vector {
     }, Big(0));
   }
 
+  @Memoize((v: Vector) => v.toString())
   public projectionOnto(other: Vector): Vector {
     assert(other instanceof Vector, "other must be a Vector");
     const scaleFactor = this.innerProduct(other).div(other.innerProduct(other));
@@ -89,6 +96,7 @@ class Vector {
     return this.vector.every((value) => Vector.bigToNumber(value) === 0);
   }
 
+  @Memoize((v: Vector) => v.toString())
   public equals(other: Vector): boolean {
     assert(other instanceof Vector, "other must be a Vector");
     if (other.vector.length !== this.vector.length) return false;
@@ -98,10 +106,12 @@ class Vector {
     });
   }
 
+  @Memoize()
   public toJSON(): number[] {
     return this.getNumVector();
   }
 
+  @Memoize()
   public toString(): string {
     return JSON.stringify(this.toJSON());
   }
