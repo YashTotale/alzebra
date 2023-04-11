@@ -7,8 +7,8 @@
 <p align="center">
 <a href="https://www.npmjs.com/package/alzebra"><img src="https://img.shields.io/npm/v/alzebra?logo=npm&logoColor=FFFFFF&labelColor=000000&label=Version&style=flat-square" alt="Version"/></a>&nbsp;
 <a href="https://www.npmjs.com/package/alzebra"><img src="https://img.shields.io/npm/dt/alzebra?logo=npm&logoColor=FFFFFF&labelColor=000000&label=Downloads&style=flat-square" alt="Downloads"/></a>&nbsp;
-<a href="https://github.com/YashTotale/alzebra/actions/workflows/integrate.yml"><img src="https://img.shields.io/github/workflow/status/YashTotale/alzebra/Node%20CI?logo=github&logoColor=FFFFFF&labelColor=000000&label=Build&style=flat-square" alt="Build"/></a>&nbsp;
-<a href="https://github.com/YashTotale/alzebra/actions/workflows/deploy.yml"><img src="https://img.shields.io/github/workflow/status/YashTotale/alzebra/Package%20Deploy?logo=github&logoColor=FFFFFF&labelColor=000000&label=Deploy&style=flat-square" alt="Deploy"/></a>&nbsp;
+<a href="https://github.com/YashTotale/alzebra/actions/workflows/integrate.yml"><img src="https://img.shields.io/github/actions/workflow/status/YashTotale/alzebra/integrate.yml?branch=master&logo=github&logoColor=FFFFFF&labelColor=000000&label=Build&style=flat-square" alt="Build"/></a>&nbsp;
+<a href="https://github.com/YashTotale/alzebra/actions/workflows/deploy.yml"><img src="https://img.shields.io/github/actions/workflow/status/YashTotale/alzebra/deploy.yml?logo=github&logoColor=FFFFFF&labelColor=000000&label=Deploy&style=flat-square" alt="Deploy"/></a>&nbsp;
 <a href="https://codecov.io/gh/YashTotale/alzebra/"><img src="https://img.shields.io/codecov/c/github/YashTotale/alzebra?style=flat-square&label=Coverage&logo=Codecov&logoColor=FFFFFF&labelColor=000000" alt="Coverage"/></a>&nbsp;
 </p>
 
