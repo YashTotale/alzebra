@@ -106,7 +106,6 @@ class Vector {
     });
   }
 
-  @Memoize()
   public toJSON(): number[] {
     return this.getNumVector();
   }
