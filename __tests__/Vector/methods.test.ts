@@ -8,81 +8,92 @@ import { vectorsShouldEqual } from "./helpers";
 import { testForEach } from "../helpers";
 import {
   faultyBigSources,
-  faultyBooleans,
   faultyNumbers,
   faultyVectors,
 } from "../helpers/faulty";
 
 describe("Methods", () => {
-  test("Get Big Vector", () => {
-    const array = [Big(1), Big(2), Big(3)];
-    const vector = new Vector(array);
-
-    const returnedArray = vector.getBigVector();
-    expect(returnedArray).toEqual(array);
-
-    returnedArray.push(Big(1));
-    const returnedArrayAgain = vector.getBigVector();
-
-    // Checks that a copy was returned both times, not the original
-    expect(returnedArray).not.toEqual(returnedArrayAgain);
-  });
-
-  test("Get Num Vector", () => {
-    const array = [1, 2, 3];
-    const vector = new Vector(array);
-
-    const returnedArray = vector.getNumVector();
-    expect(returnedArray).toEqual(array);
-
-    returnedArray.push(1);
-    const returnedArrayAgain = vector.getNumVector();
-
-    // Checks that a copy was returned both times, not the original
-    expect(returnedArray).not.toEqual(returnedArrayAgain);
-  });
-
-  describe("Get Value", () => {
-    testForEach("Prevents faulty position", faultyNumbers, (x) => {
-      const vector = new Vector([]);
-      const useFaultyPosition = () => vector.getValue(x, true);
-      expect(useFaultyPosition).toThrowError(assert.AssertionError);
-    });
-
-    test("Prevents negative position", () => {
-      const vector = new Vector([]);
-      const useNegativePosition = () => vector.getValue(-1, true);
-      expect(useNegativePosition).toThrowError(assert.AssertionError);
-    });
-
-    test("Prevents position greater than or equal to length", () => {
-      const vector = new Vector([]);
-      const usePositionEqualToLength = () => vector.getValue(0, true);
-      const usePositionGreaterThanLength = () => vector.getValue(1, true);
-      expect(usePositionEqualToLength).toThrowError(assert.AssertionError);
-      expect(usePositionGreaterThanLength).toThrowError(assert.AssertionError);
-    });
-
-    testForEach("Prevents faulty toNumber", faultyBooleans, (x) => {
-      const vector = new Vector([1]);
-      const useFaultyToNumber = () => vector.getValue(0, x);
-      expect(useFaultyToNumber).toThrowError(assert.AssertionError);
-    });
-
-    test("toNumber is true", () => {
-      const array = [1, 2, 3];
-      const vector = new Vector(array);
-
-      const returnedValue = vector.getValue(0, true);
-      expect(returnedValue).toEqual(1);
-    });
-
-    test("toNumber is false", () => {
+  describe("Get Vector", () => {
+    test("Get Big Vector", () => {
       const array = [Big(1), Big(2), Big(3)];
       const vector = new Vector(array);
 
-      const returnedValue = vector.getValue(2, false);
+      const returnedArray = vector.getBigVector();
+      expect(returnedArray).toEqual(array);
+
+      returnedArray.push(Big(1));
+      const returnedArrayAgain = vector.getBigVector();
+
+      // Checks that a copy was returned both times, not the original
+      expect(returnedArray).not.toEqual(returnedArrayAgain);
+    });
+
+    test("Get Num Vector", () => {
+      const array = [1, 2, 3];
+      const vector = new Vector(array);
+
+      const returnedArray = vector.getNumVector();
+      expect(returnedArray).toEqual(array);
+
+      returnedArray.push(1);
+      const returnedArrayAgain = vector.getNumVector();
+
+      // Checks that a copy was returned both times, not the original
+      expect(returnedArray).not.toEqual(returnedArrayAgain);
+    });
+  });
+
+  describe("Get Value", () => {
+    const emptyVector = new Vector([]);
+
+    testForEach("Prevents faulty position", faultyNumbers, (x) => {
+      const useFaultyBigPosition = () => emptyVector.getBigValue(x);
+      const useFaultyNumPosition = () => emptyVector.getNumValue(x);
+      expect(useFaultyBigPosition).toThrowError(assert.AssertionError);
+      expect(useFaultyNumPosition).toThrowError(assert.AssertionError);
+    });
+
+    test("Prevents negative position", () => {
+      const useNegativeBigPosition = () => emptyVector.getBigValue(-1);
+      const useNegativeNumPosition = () => emptyVector.getNumValue(-1);
+      expect(useNegativeBigPosition).toThrowError(assert.AssertionError);
+      expect(useNegativeNumPosition).toThrowError(assert.AssertionError);
+    });
+
+    test("Prevents position equal to length", () => {
+      const vector = new Vector([]);
+      const useBigPositionEqualToLength = () => vector.getNumValue(0);
+      const useNumPositionEqualToLength = () => vector.getBigValue(0);
+      expect(useBigPositionEqualToLength).toThrowError(assert.AssertionError);
+      expect(useNumPositionEqualToLength).toThrowError(assert.AssertionError);
+    });
+
+    test("Prevents position greater than length", () => {
+      const vector = new Vector([]);
+      const useBigPositionGreaterThanLength = () => vector.getNumValue(1);
+      const useNumPositionGreaterThanLength = () => vector.getBigValue(1);
+      expect(useBigPositionGreaterThanLength).toThrowError(
+        assert.AssertionError
+      );
+      expect(useNumPositionGreaterThanLength).toThrowError(
+        assert.AssertionError
+      );
+    });
+
+    test("Get Big Value", () => {
+      const array = [Big(1), Big(2), Big(3)];
+      const vector = new Vector(array);
+
+      const returnedValue = vector.getBigValue(2);
       expect(returnedValue).toEqual(Big(3));
+    });
+
+    test("Get Num Value", () => {
+      const array = [1, 2, 3];
+      const vector = new Vector(array);
+
+      const returnedValue = vector.getNumValue(0);
+      expect(returnedValue).toEqual(1);
     });
   });
 
