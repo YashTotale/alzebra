@@ -83,8 +83,12 @@ class Vector {
     });
   }
 
+  public toJSON(): number[] {
+    return this.getVector(true);
+  }
+
   public toString(): string {
-    return JSON.stringify(this.getVector(true));
+    return JSON.stringify(this.toJSON());
   }
 
   private static bigToNumber(big: Big) {

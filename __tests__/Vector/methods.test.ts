@@ -176,6 +176,11 @@ describe("Methods", () => {
     });
   });
 
+  test("toJSON", () => {
+    const vector = new Vector([1.6262, 9.00000001, -10]);
+    expect(vector.toJSON()).toEqual([1.626, 9, -10]);
+  });
+
   test("toString", () => {
     const vector = new Vector([1.6262, 9.00000001, -10]);
     expect(vector.toString()).toEqual("[1.626,9,-10]");
