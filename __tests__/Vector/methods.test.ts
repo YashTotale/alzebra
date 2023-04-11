@@ -14,40 +14,32 @@ import {
 } from "../helpers/faulty";
 
 describe("Methods", () => {
-  describe("Get Vector", () => {
-    testForEach("Prevents faulty toNumber", faultyBooleans, (x) => {
-      const vector = new Vector([]);
-      const useFaultyToNumber = () => vector.getVector(x);
-      expect(useFaultyToNumber).toThrowError(assert.AssertionError);
-    });
+  test("Get Big Vector", () => {
+    const array = [Big(1), Big(2), Big(3)];
+    const vector = new Vector(array);
 
-    test("toNumber is true", () => {
-      const array = [1, 2, 3];
-      const vector = new Vector(array);
+    const returnedArray = vector.getBigVector();
+    expect(returnedArray).toEqual(array);
 
-      const returnedArray = vector.getVector(true);
-      expect(returnedArray).toEqual(array);
+    returnedArray.push(Big(1));
+    const returnedArrayAgain = vector.getBigVector();
 
-      returnedArray.push(1);
-      const returnedArrayAgain = vector.getVector(true);
+    // Checks that a copy was returned both times, not the original
+    expect(returnedArray).not.toEqual(returnedArrayAgain);
+  });
 
-      // Checks that a copy was returned both times, not the original
-      expect(returnedArray).not.toEqual(returnedArrayAgain);
-    });
+  test("Get Num Vector", () => {
+    const array = [1, 2, 3];
+    const vector = new Vector(array);
 
-    test("toNumber is false", () => {
-      const array = [Big(1), Big(2), Big(3)];
-      const vector = new Vector(array);
+    const returnedArray = vector.getNumVector();
+    expect(returnedArray).toEqual(array);
 
-      const returnedArray = vector.getVector(false);
-      expect(returnedArray).toEqual(array);
+    returnedArray.push(1);
+    const returnedArrayAgain = vector.getNumVector();
 
-      returnedArray.push(Big(1));
-      const returnedArrayAgain = vector.getVector(false);
-
-      // Checks that a copy was returned both times, not the original
-      expect(returnedArray).not.toEqual(returnedArrayAgain);
-    });
+    // Checks that a copy was returned both times, not the original
+    expect(returnedArray).not.toEqual(returnedArrayAgain);
   });
 
   describe("Get Value", () => {

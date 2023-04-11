@@ -11,14 +11,12 @@ class Vector {
     this.vector = values.map((val) => Big(val));
   }
 
-  public getVector(toNumber: false): Big[];
-  public getVector(toNumber: true): number[];
-  public getVector(toNumber: boolean): (Big | number)[];
-  public getVector(toNumber: boolean): (Big | number)[] {
-    assert(typeof toNumber === "boolean", "toNumber must be a boolean");
-    return this.vector.map((value) =>
-      toNumber ? Vector.bigToNumber(value) : value
-    );
+  public getBigVector(): Big[] {
+    return [...this.vector];
+  }
+
+  public getNumVector(): number[] {
+    return this.vector.map(Vector.bigToNumber);
   }
 
   public getValue(position: number, toNumber: false): Big;
@@ -95,7 +93,7 @@ class Vector {
   }
 
   public toJSON(): number[] {
-    return this.getVector(true);
+    return this.getNumVector();
   }
 
   public toString(): string {
