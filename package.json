@@ -87,6 +87,7 @@
     "typescript": "^4.8.2"
   },
   "dependencies": {
-    "big.js": "^6.2.1"
+    "big.js": "^6.2.1",
+    "typescript-memoize": "^1.1.1"
   }
 }

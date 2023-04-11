@@ -1,10 +1,10 @@
 // External Imports
 import assert from "assert";
 import Big, { BigSource } from "big.js";
+import { Memoize } from "typescript-memoize";
 
 class Vector {
   private vector: Big[];
-  private isZero: boolean | undefined; // For caching the result of isZeroVector
 
   constructor(values: BigSource[]) {
     assert(Array.isArray(values), "values must be an array");
@@ -80,13 +80,9 @@ class Vector {
     return other.scale(scaleFactor);
   }
 
-  public isZeroVector(): boolean {
-    if (typeof this.isZero !== "boolean") {
-      this.isZero = this.vector.every(
-        (value) => Vector.bigToNumber(value) === 0
-      );
-    }
-    return this.isZero;
+  @Memoize()
+  public get isZero(): boolean {
+    return this.vector.every((value) => Vector.bigToNumber(value) === 0);
   }
 
   public equals(other: Vector): boolean {

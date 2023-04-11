@@ -35,7 +35,7 @@ class GramSchmidt {
   private getQVectors() {
     return this.aVectors.reduce((prevQVectors, aVector) => {
       const nextQVector = this.getQVector(aVector, prevQVectors).normalize();
-      if (this.removeZeroVectors && nextQVector.isZeroVector()) {
+      if (this.removeZeroVectors && nextQVector.isZero) {
         return prevQVectors;
       }
       return [...prevQVectors, nextQVector];

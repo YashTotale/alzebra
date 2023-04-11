@@ -187,15 +187,15 @@ describe("Methods", () => {
     });
   });
 
-  describe("Is Zero Vector", () => {
+  describe("Is Zero", () => {
     test("Is", () => {
       const vector = new Vector([0, 0]);
-      expect(vector.isZeroVector()).toBeTrue();
+      expect(vector.isZero).toBeTrue();
     });
 
     test("Is Not", () => {
       const vector = new Vector([0, 0, 2]);
-      expect(vector.isZeroVector()).toBeFalse();
+      expect(vector.isZero).toBeFalse();
     });
   });
 
