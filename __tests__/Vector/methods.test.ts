@@ -190,18 +190,6 @@ describe("Methods", () => {
     });
   });
 
-  describe("Is Zero", () => {
-    test("Is", () => {
-      const vector = new Vector([0, 0]);
-      expect(vector.isZero).toBeTrue();
-    });
-
-    test("Is Not", () => {
-      const vector = new Vector([0, 0, 2]);
-      expect(vector.isZero).toBeFalse();
-    });
-  });
-
   describe("Equals", () => {
     describe("Not Equal", () => {
       test("Different Length", () => {
@@ -232,5 +220,22 @@ describe("Methods", () => {
   test("toString", () => {
     const vector = new Vector([1.6262, 9.00000001, -10]);
     expect(vector.toString()).toEqual("[1.626,9,-10]");
+  });
+
+  describe("Is Zero", () => {
+    test("Is", () => {
+      const vector = new Vector([0, 0]);
+      expect(vector.isZero).toBeTrue();
+    });
+
+    test("Is Not", () => {
+      const vector = new Vector([0, 0, 2]);
+      expect(vector.isZero).toBeFalse();
+    });
+  });
+
+  test("Length", () => {
+    const vector = new Vector([0, 0, 2]);
+    expect(vector.length).toBe(3);
   });
 });

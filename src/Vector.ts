@@ -91,11 +91,6 @@ class Vector {
     return other.scale(scaleFactor);
   }
 
-  @Memoize()
-  public get isZero(): boolean {
-    return this.vector.every((value) => Vector.bigToNumber(value) === 0);
-  }
-
   @Memoize((v: Vector) => v.toString())
   public equals(other: Vector): boolean {
     assert(other instanceof Vector, "other must be a Vector");
@@ -113,6 +108,16 @@ class Vector {
   @Memoize()
   public toString(): string {
     return JSON.stringify(this.toJSON());
+  }
+
+  @Memoize()
+  public get isZero(): boolean {
+    return this.vector.every((value) => Vector.bigToNumber(value) === 0);
+  }
+
+  @Memoize()
+  public get length(): number {
+    return this.vector.length;
   }
 
   private static bigToNumber(big: Big) {
