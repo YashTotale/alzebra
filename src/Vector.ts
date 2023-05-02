@@ -7,7 +7,7 @@ class Vector {
   private vector: Big[];
 
   constructor(values: BigSource[]) {
-    assert(Array.isArray(values), "values must be an array");
+    this.checkValues(values);
     this.vector = values.map((val) => Big(val));
   }
 
@@ -29,16 +29,6 @@ class Vector {
   public getNumValue(position: number): number {
     this.checkPosition(position);
     return Vector.bigToNumber(this.vector[position]);
-  }
-
-  @Memoize()
-  private checkPosition(position: number) {
-    assert(typeof position === "number", "position must be a number");
-    assert(position >= 0, "position must be greater than or equal to 0");
-    assert(
-      position < this.vector.length,
-      `position must be less than vector length (${this.vector.length})`
-    );
   }
 
   @Memoize()
@@ -118,6 +108,29 @@ class Vector {
   @Memoize()
   public get length(): number {
     return this.vector.length;
+  }
+
+  @Memoize()
+  private checkValues(values: BigSource[]) {
+    assert(Array.isArray(values), "values must be an array");
+    values.forEach((value, i) => {
+      assert(
+        typeof value === "string" ||
+          typeof value === "number" ||
+          value instanceof Big,
+        `value ${i} must be a string, number, or Big`
+      );
+    });
+  }
+
+  @Memoize()
+  private checkPosition(position: number) {
+    assert(typeof position === "number", "position must be a number");
+    assert(position >= 0, "position must be greater than or equal to 0");
+    assert(
+      position < this.vector.length,
+      `position must be less than vector length (${this.vector.length})`
+    );
   }
 
   private static bigToNumber(big: Big) {

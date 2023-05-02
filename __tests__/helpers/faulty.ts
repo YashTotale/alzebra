@@ -49,3 +49,7 @@ export const faultyBigSources = [
   {},
   () => null,
 ] as BigSource[];
+
+export const faultyBigSourceArrays = faultyArrays.concat(
+  faultyBigSources.map((faulty) => [faulty])
+) as BigSource[][];

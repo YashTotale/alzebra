@@ -7,12 +7,20 @@ import Vector from "../../src/Vector";
 import { vectorsShouldEqual } from "./helpers";
 import { testForEach } from "../helpers";
 import {
+  faultyBigSourceArrays,
   faultyBigSources,
   faultyNumbers,
   faultyVectors,
 } from "../helpers/faulty";
 
 describe("Methods", () => {
+  describe("Constructor", () => {
+    testForEach("Prevents faulty values", faultyBigSourceArrays, (x) => {
+      const useFaultyValues = () => new Vector(x);
+      expect(useFaultyValues).toThrowError();
+    });
+  });
+
   describe("Get Vector", () => {
     test("Get Big Vector", () => {
       const array = [Big(1), Big(2), Big(3)];
