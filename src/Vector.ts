@@ -110,7 +110,6 @@ class Vector {
     return this.vector.length;
   }
 
-  @Memoize()
   private checkValues(values: BigSource[]) {
     assert(Array.isArray(values), "values must be an array");
     values.forEach((value, i) => {
