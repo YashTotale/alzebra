@@ -132,6 +132,17 @@ class Vector {
     );
   }
 
+  public static standardBasisVectors(dimension: number): Vector[] {
+    assert(typeof dimension === "number", "dimension must be a number");
+    const zeroVector = new Array(dimension).fill(0);
+    return zeroVector.map((x, i) => {
+      zeroVector[i] = 1; // Temporarily change 0 to 1 to make it a standard basis vector
+      const basisVector = new Vector(zeroVector);
+      zeroVector[i] = 0;
+      return basisVector;
+    });
+  }
+
   private static bigToNumber(big: Big) {
     return big.round(3).toNumber() + 0; // Add 0 to avoid -0
   }

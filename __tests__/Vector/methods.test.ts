@@ -12,7 +12,7 @@ import {
   faultyVectors,
 } from "../helpers/faulty";
 
-describe("Methods", () => {
+describe("Instance Methods", () => {
   describe("Get Vector", () => {
     test("Get Big Vector", () => {
       const array = [Big(1), Big(2), Big(3)];
@@ -237,5 +237,28 @@ describe("Methods", () => {
   test("Length", () => {
     const vector = new Vector([0, 0, 2]);
     expect(vector.length).toBe(3);
+  });
+});
+
+describe("Static Methods", () => {
+  describe("Standard Basis Vectors", () => {
+    testForEach("Prevents faulty dimension", faultyNumbers, (x) => {
+      const useFaultyDimension = () => Vector.standardBasisVectors(x);
+      expect(useFaultyDimension).toThrowError();
+    });
+
+    test("Works", () => {
+      const expected = [
+        new Vector([1, 0, 0]),
+        new Vector([0, 1, 0]),
+        new Vector([0, 0, 1]),
+      ];
+
+      const result = Vector.standardBasisVectors(3);
+      result.forEach((resultVector, i) => {
+        const expectedVector = expected[i];
+        vectorsShouldEqual(resultVector, expectedVector);
+      });
+    });
   });
 });
