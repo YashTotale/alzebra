@@ -2,7 +2,7 @@
     <img src="https://raw.githubusercontent.com/YashTotale/alzebra/master/static/icon.png" alt="Alzebra" width="200"></img>
 </p>
 <h1 align="center">Alzebra</h1>
-<p align="center">An All-In-One Herd of Linear Algebra Functions</p>
+<p align="center">All-In-One Herd of Linear Algebra Functions</p>
 <p align="center"><strong><a href="https://alzebra.yashtotale.dev/">View the website for API documentation and more!</a></strong></p>
 <p align="center">
 <a href="https://www.npmjs.com/package/alzebra"><img src="https://img.shields.io/npm/v/alzebra?logo=npm&logoColor=FFFFFF&labelColor=000000&label=Version&style=flat-square" alt="Version"/></a>&nbsp;

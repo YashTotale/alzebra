@@ -6,14 +6,22 @@ import Vector from "./Vector";
 
 class Matrix {
   private rows: Vector[];
-  private numRows: number;
-  private numCols: number;
 
   constructor(rows: Vector[]) {
     this.checkRows(rows);
     this.rows = [...rows];
-    this.numRows = this.rows.length;
-    this.numCols = this.rows[0].length;
+  }
+
+  public get numRows() {
+    return this.rows.length;
+  }
+
+  public get numCols() {
+    return this.rows[0].length;
+  }
+
+  public get isSquare() {
+    return this.numRows === this.numCols;
   }
 
   private checkRows(rows: Vector[]) {
