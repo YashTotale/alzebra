@@ -162,6 +162,13 @@ describe("Instance Methods", () => {
       expect(useFaultyVector).toThrowError();
     });
 
+    test("Prevents different length vector", () => {
+      const vector1 = new Vector([1, 2]);
+      const vector2 = new Vector([1, 2, 3]);
+      const useDifferentLengthVector = () => vector1.innerProduct(vector2);
+      expect(useDifferentLengthVector).toThrowError();
+    });
+
     test("Works", () => {
       const vector1 = new Vector([3, 4]);
       const vector2 = new Vector([4, 7]);

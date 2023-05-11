@@ -69,6 +69,7 @@ class Vector {
   @Memoize((v: Vector) => v.toString())
   public innerProduct(other: Vector): Big {
     assert(other instanceof Vector, "other must be a Vector");
+    assert(other.length === this.length, "other must have same length");
     return this.vector.reduce((sum, value, i) => {
       return sum.plus(value.times(other.vector[i]));
     }, Big(0));
