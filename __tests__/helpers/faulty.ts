@@ -22,6 +22,14 @@ export const faultyNumbers = [
   () => null,
 ] as number[];
 
+export const faultyObjects = [
+  "faulty",
+  123,
+  true,
+  null,
+  // eslint-disable-next-line @typescript-eslint/ban-types
+] as Object[];
+
 export const faultyArrays = [
   "faulty",
   123,
