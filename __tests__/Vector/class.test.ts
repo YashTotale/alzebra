@@ -1,8 +1,6 @@
-// External Imports
-import assert from "assert";
-
 // Internal Imports
 import Vector from "../../src/Vector";
+import { ArrayCheck } from "../../src/Check";
 import { testForEach } from "../helpers";
 import { faultyArrays, faultyBigSources } from "../helpers/faulty";
 
@@ -21,7 +19,9 @@ describe("Vector Class", () => {
   describe("Constructor", () => {
     testForEach("Prevents faulty values array", faultyArrays, (x) => {
       const useFaultyArray = () => new Vector(x);
-      expect(useFaultyArray).toThrowError(assert.AssertionError);
+      expect(useFaultyArray).toThrowError(
+        ArrayCheck.CreateIsArrayError("values")
+      );
     });
 
     testForEach("Prevents faulty value", faultyBigSources, (x) => {

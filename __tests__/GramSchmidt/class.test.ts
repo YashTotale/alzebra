@@ -1,11 +1,9 @@
-// External Imports
-import assert from "assert";
-
 // Internal Imports
 import GramSchmidt from "../../src/GramSchmidt";
+import Vector from "../../src/Vector";
+import { ArrayCheck, VectorCheck } from "../../src/Check";
 import { testForEach } from "../helpers";
 import { faultyArrays, faultyVectors } from "../helpers/faulty";
-import Vector from "../../src/Vector";
 
 describe("GramSchmidt Class", () => {
   test("GramSchmidt is a function", () => {
@@ -22,18 +20,24 @@ describe("GramSchmidt Class", () => {
   describe("Constructor", () => {
     testForEach("Prevents faulty vectors array", faultyArrays, (x) => {
       const useFaultyArray = () => new GramSchmidt(x);
-      expect(useFaultyArray).toThrowError(assert.AssertionError);
+      expect(useFaultyArray).toThrowError(
+        ArrayCheck.CreateIsArrayError("vectors")
+      );
     });
 
     testForEach("Prevents faulty vector", faultyVectors, (x) => {
       const useFaultyValue = () => new GramSchmidt([x]);
-      expect(useFaultyValue).toThrowError(assert.AssertionError);
+      expect(useFaultyValue).toThrowError(
+        VectorCheck.CreateIsVectorError("vector 0")
+      );
     });
 
     test("Prevents different length rows", () => {
       const useDifferentLengthVectors = () =>
         new GramSchmidt([new Vector([1]), new Vector([1, 2])]);
-      expect(useDifferentLengthVectors).toThrowError(assert.AssertionError);
+      expect(useDifferentLengthVectors).toThrowError(
+        VectorCheck.CreateLengthEqualToError("vector 1", 1)
+      );
     });
   });
 });

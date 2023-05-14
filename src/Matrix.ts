@@ -1,8 +1,6 @@
-// External Imports
-import assert from "assert";
-
 // Internal Imports
 import Vector from "./Vector";
+import { ArrayCheck, VectorCheck } from "./Check";
 
 class Matrix {
   private rows: Vector[];
@@ -25,16 +23,13 @@ class Matrix {
   }
 
   private checkRows(rows: Vector[]) {
-    console.log(rows, Array.isArray(rows));
-    assert(Array.isArray(rows), "rows must be an array");
-    assert(rows.length > 0, "rows must have at least 1 row");
+    ArrayCheck.isArray({ rows });
+    ArrayCheck.lengthGreaterThan({ rows }, 0);
     rows.forEach((row, i) => {
-      assert(row instanceof Vector, `row ${i + 1} must be a Vector`);
+      const name = `row ${i}`;
+      VectorCheck.isVector({ [name]: row });
       const rowLength = rows[0].length;
-      assert(
-        row.length === rowLength,
-        `row ${i + 1} does not have the correct length (${rowLength})`
-      );
+      VectorCheck.lengthEqualTo({ [name]: row }, rowLength);
     });
   }
 }

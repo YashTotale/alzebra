@@ -1,7 +1,9 @@
 // External Imports
-import assert from "assert";
 import Big, { BigSource } from "big.js";
 import { Memoize } from "typescript-memoize";
+
+// Internal Imports
+import { ArrayCheck, BigSourceCheck, NumberCheck, VectorCheck } from "./Check";
 
 class Vector {
   private vector: Big[];
@@ -33,17 +35,15 @@ class Vector {
 
   @Memoize()
   public scale(factor: BigSource) {
+    BigSourceCheck.isBigSource({ factor });
     const scaleFactor = Big(factor);
     return new Vector(this.vector.map((value) => value.times(scaleFactor)));
   }
 
-  @Memoize((v: Vector) => v.toString())
+  @Memoize((v: Vector) => JSON.stringify(v))
   public subtract(other: Vector): Vector {
-    assert(other instanceof Vector, "other must be a Vector");
-    assert(
-      this.vector.length === other.vector.length,
-      "Both vectors must have the same length"
-    );
+    VectorCheck.isVector({ other });
+    VectorCheck.isSameLengthAs(this, other);
     const subtractedValues = this.vector.map((value, i) => {
       return value.sub(other.vector[i]);
     });
@@ -66,29 +66,30 @@ class Vector {
     }
   }
 
-  @Memoize((v: Vector) => v.toString())
+  @Memoize((v: Vector) => JSON.stringify(v))
   public innerProduct(other: Vector): Big {
-    assert(other instanceof Vector, "other must be a Vector");
-    assert(other.length === this.length, "other must have same length");
+    VectorCheck.isVector({ other });
+    VectorCheck.isSameLengthAs(this, other);
     return this.vector.reduce((sum, value, i) => {
       return sum.plus(value.times(other.vector[i]));
     }, Big(0));
   }
 
-  @Memoize((v: Vector) => v.toString())
+  @Memoize((v: Vector) => JSON.stringify(v))
   public projectionOnto(other: Vector): Vector {
-    assert(other instanceof Vector, "other must be a Vector");
+    VectorCheck.isVector({ other });
+    VectorCheck.isSameLengthAs(this, other);
     const scaleFactor = this.innerProduct(other).div(other.innerProduct(other));
     return other.scale(scaleFactor);
   }
 
   @Memoize((v: Vector) => v.toString())
   public equals(other: Vector): boolean {
-    assert(other instanceof Vector, "other must be a Vector");
+    VectorCheck.isVector({ other });
     if (other.vector.length !== this.vector.length) return false;
     return this.vector.every((value, i) => {
       const otherValue = other.vector[i];
-      return value.eq(otherValue);
+      return Vector.bigToNumber(value) === Vector.bigToNumber(otherValue);
     });
   }
 
@@ -112,29 +113,22 @@ class Vector {
   }
 
   private checkValues(values: BigSource[]) {
-    assert(Array.isArray(values), "values must be an array");
+    ArrayCheck.isArray({ values });
     values.forEach((value, i) => {
-      assert(
-        typeof value === "string" ||
-          typeof value === "number" ||
-          value instanceof Big,
-        `value ${i} must be a string, number, or Big`
-      );
+      BigSourceCheck.isBigSource({ [`value ${i}`]: value });
     });
   }
 
   @Memoize()
   private checkPosition(position: number) {
-    assert(typeof position === "number", "position must be a number");
-    assert(position >= 0, "position must be greater than or equal to 0");
-    assert(
-      position < this.vector.length,
-      `position must be less than vector length (${this.vector.length})`
-    );
+    NumberCheck.isNumber({ position });
+    NumberCheck.isGreaterThanOrEqualTo({ position }, 0);
+    NumberCheck.isLessThan({ position }, this.vector.length);
   }
 
   public static standardBasisVectors(dimension: number): Vector[] {
-    assert(typeof dimension === "number", "dimension must be a number");
+    NumberCheck.isNumber({ dimension });
+    NumberCheck.isGreaterThan({ dimension }, 0);
     const zeroVector = new Array(dimension).fill(0);
     return zeroVector.map((x, i) => {
       zeroVector[i] = 1; // Temporarily change 0 to 1 to make it a standard basis vector

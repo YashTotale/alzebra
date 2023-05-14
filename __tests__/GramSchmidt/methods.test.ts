@@ -4,6 +4,7 @@ import Big from "big.js";
 // Internal Imports
 import Vector from "../../src/Vector";
 import GramSchmidt from "../../src/GramSchmidt";
+import { NumberCheck, ObjectCheck } from "../../src/Check";
 import { testForEach } from "../helpers";
 import { faultyNumbers, faultyObjects } from "../helpers/faulty";
 import { vectorsShouldEqual } from "../Vector/helpers";
@@ -12,6 +13,8 @@ describe("Methods", () => {
   describe("Solve", () => {
     const vectors = [
       new Vector([3, 4, 0]),
+      new Vector([4, 3, 0]),
+      new Vector([4, 3, 0]),
       new Vector([4, 3, 0]),
       new Vector([4, 3, 0]),
     ];
@@ -24,22 +27,32 @@ describe("Methods", () => {
 
     testForEach("Prevents faulty options", faultyObjects, (x) => {
       const useFaultyOptions = () => gramSchmidt.solve(x);
-      expect(useFaultyOptions).toThrowError();
+      expect(useFaultyOptions).toThrowError(
+        ObjectCheck.CreateIsObjectError("options")
+      );
     });
 
     testForEach("Prevents faulty extendBasisTo", faultyNumbers, (x) => {
       const useFaultyExtendBasisTo = () =>
         gramSchmidt.solve({ extendBasisTo: x });
-      expect(useFaultyExtendBasisTo).toThrowError();
+      expect(useFaultyExtendBasisTo).toThrowError(
+        NumberCheck.CreateIsNumberOrUndefinedError("extendBasisTo")
+      );
     });
 
     test("Prevents out of range extendBasisTo", () => {
       const useNegativeExtend = () => gramSchmidt.solve({ extendBasisTo: -1 });
       const useZeroExtend = () => gramSchmidt.solve({ extendBasisTo: 0 });
       const useLargeExtend = () => gramSchmidt.solve({ extendBasisTo: 4 });
-      expect(useNegativeExtend).toThrowError();
-      expect(useZeroExtend).toThrowError();
-      expect(useLargeExtend).toThrowError();
+      expect(useNegativeExtend).toThrowError(
+        NumberCheck.CreateIsGreaterThanError("extendBasisTo", 0)
+      );
+      expect(useZeroExtend).toThrowError(
+        NumberCheck.CreateIsGreaterThanError("extendBasisTo", 0)
+      );
+      expect(useLargeExtend).toThrowError(
+        NumberCheck.CreateIsLessThanOrEqualToError("extendBasisTo", 3)
+      );
     });
 
     test("Without extending basis", () => {

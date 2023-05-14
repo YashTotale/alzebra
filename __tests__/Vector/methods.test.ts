@@ -1,9 +1,9 @@
 // External Imports
 import Big from "big.js";
-import assert from "assert";
 
 // Internal Imports
 import Vector from "../../src/Vector";
+import { NumberCheck, VectorCheck } from "../../src/Check";
 import { vectorsShouldEqual } from "./helpers";
 import { testForEach } from "../helpers";
 import {
@@ -49,34 +49,44 @@ describe("Instance Methods", () => {
     testForEach("Prevents faulty position", faultyNumbers, (x) => {
       const useFaultyBigPosition = () => emptyVector.getBigValue(x);
       const useFaultyNumPosition = () => emptyVector.getNumValue(x);
-      expect(useFaultyBigPosition).toThrowError(assert.AssertionError);
-      expect(useFaultyNumPosition).toThrowError(assert.AssertionError);
+      expect(useFaultyBigPosition).toThrowError(
+        NumberCheck.CreateIsNumberError("position")
+      );
+      expect(useFaultyNumPosition).toThrowError(
+        NumberCheck.CreateIsNumberError("position")
+      );
     });
 
     test("Prevents negative position", () => {
       const useNegativeBigPosition = () => emptyVector.getBigValue(-1);
       const useNegativeNumPosition = () => emptyVector.getNumValue(-1);
-      expect(useNegativeBigPosition).toThrowError(assert.AssertionError);
-      expect(useNegativeNumPosition).toThrowError(assert.AssertionError);
+      expect(useNegativeBigPosition).toThrowError(
+        NumberCheck.CreateIsGreaterThanOrEqualToError("position", 0)
+      );
+      expect(useNegativeNumPosition).toThrowError(
+        NumberCheck.CreateIsGreaterThanOrEqualToError("position", 0)
+      );
     });
 
     test("Prevents position equal to length", () => {
-      const vector = new Vector([]);
-      const useBigPositionEqualToLength = () => vector.getNumValue(0);
-      const useNumPositionEqualToLength = () => vector.getBigValue(0);
-      expect(useBigPositionEqualToLength).toThrowError(assert.AssertionError);
-      expect(useNumPositionEqualToLength).toThrowError(assert.AssertionError);
+      const useBigPositionEqualToLength = () => emptyVector.getNumValue(0);
+      const useNumPositionEqualToLength = () => emptyVector.getBigValue(0);
+      expect(useBigPositionEqualToLength).toThrowError(
+        NumberCheck.CreateIsLessThanError("position", 0)
+      );
+      expect(useNumPositionEqualToLength).toThrowError(
+        NumberCheck.CreateIsLessThanError("position", 0)
+      );
     });
 
     test("Prevents position greater than length", () => {
-      const vector = new Vector([]);
-      const useBigPositionGreaterThanLength = () => vector.getNumValue(1);
-      const useNumPositionGreaterThanLength = () => vector.getBigValue(1);
+      const useBigPositionGreaterThanLength = () => emptyVector.getNumValue(1);
+      const useNumPositionGreaterThanLength = () => emptyVector.getBigValue(1);
       expect(useBigPositionGreaterThanLength).toThrowError(
-        assert.AssertionError
+        NumberCheck.CreateIsLessThanError("position", 0)
       );
       expect(useNumPositionGreaterThanLength).toThrowError(
-        assert.AssertionError
+        NumberCheck.CreateIsLessThanError("position", 0)
       );
     });
 
@@ -115,15 +125,19 @@ describe("Instance Methods", () => {
     testForEach("Prevents faulty vector", faultyVectors, (x) => {
       const vector = new Vector([]);
       const useFaultyVector = () => vector.subtract(x);
-      expect(useFaultyVector).toThrowError();
+      expect(useFaultyVector).toThrowError(
+        VectorCheck.CreateIsVectorError("other")
+      );
     });
 
-    test("Checks for same length", () => {
+    test("Prevents different length vector", () => {
       const vector1 = new Vector([1, 2, 3]);
       const vector2 = new Vector([1, 2]);
 
       const doFaultySubtract = () => vector1.subtract(vector2);
-      expect(doFaultySubtract).toThrowError(assert.AssertionError);
+      expect(doFaultySubtract).toThrowError(
+        VectorCheck.CreateNotSameLengthError()
+      );
     });
 
     test("Works", () => {
@@ -159,14 +173,18 @@ describe("Instance Methods", () => {
     testForEach("Prevents faulty vector", faultyVectors, (x) => {
       const vector = new Vector([]);
       const useFaultyVector = () => vector.innerProduct(x);
-      expect(useFaultyVector).toThrowError();
+      expect(useFaultyVector).toThrowError(
+        VectorCheck.CreateIsVectorError("other")
+      );
     });
 
     test("Prevents different length vector", () => {
       const vector1 = new Vector([1, 2]);
       const vector2 = new Vector([1, 2, 3]);
       const useDifferentLengthVector = () => vector1.innerProduct(vector2);
-      expect(useDifferentLengthVector).toThrowError();
+      expect(useDifferentLengthVector).toThrowError(
+        VectorCheck.CreateNotSameLengthError()
+      );
     });
 
     test("Works", () => {
@@ -180,7 +198,18 @@ describe("Instance Methods", () => {
     testForEach("Prevents faulty vector", faultyVectors, (x) => {
       const vector = new Vector([]);
       const useFaultyVector = () => vector.projectionOnto(x);
-      expect(useFaultyVector).toThrowError();
+      expect(useFaultyVector).toThrowError(
+        VectorCheck.CreateIsVectorError("other")
+      );
+    });
+
+    test("Prevents different length vector", () => {
+      const vector1 = new Vector([1, 2]);
+      const vector2 = new Vector([1, 2, 3]);
+      const useDifferentLengthVector = () => vector1.projectionOnto(vector2);
+      expect(useDifferentLengthVector).toThrowError(
+        VectorCheck.CreateNotSameLengthError()
+      );
     });
 
     test("Works", () => {
@@ -251,7 +280,20 @@ describe("Static Methods", () => {
   describe("Standard Basis Vectors", () => {
     testForEach("Prevents faulty dimension", faultyNumbers, (x) => {
       const useFaultyDimension = () => Vector.standardBasisVectors(x);
-      expect(useFaultyDimension).toThrowError();
+      expect(useFaultyDimension).toThrowError(
+        NumberCheck.CreateIsNumberError("dimension")
+      );
+    });
+
+    test("Prevents non-positive dimension", () => {
+      const useNegativeDimension = () => Vector.standardBasisVectors(-1);
+      const useZeroDimension = () => Vector.standardBasisVectors(0);
+      expect(useNegativeDimension).toThrowError(
+        NumberCheck.CreateIsGreaterThanError("dimension", 0)
+      );
+      expect(useZeroDimension).toThrowError(
+        NumberCheck.CreateIsGreaterThanError("dimension", 0)
+      );
     });
 
     test("Works", () => {

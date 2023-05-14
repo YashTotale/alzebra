@@ -1,8 +1,6 @@
-// External Imports
-import assert from "assert";
-
 // Internal Imports
 import Vector from "./Vector";
+import { ArrayCheck, NumberCheck, ObjectCheck, VectorCheck } from "./Check";
 
 interface GramSchmidtOptions {
   extendBasisTo?: number;
@@ -62,33 +60,23 @@ class GramSchmidt {
   }
 
   private checkVectors(vectors: Vector[]): void {
-    assert(Array.isArray(vectors), "vectors must be an array");
-    assert(vectors.length > 0, "vectors must have at least 1 vector");
+    ArrayCheck.isArray({ vectors });
+    ArrayCheck.lengthGreaterThan({ vectors }, 0);
     vectors.forEach((vector, i) => {
-      assert(vector instanceof Vector, `vector ${i + 1} must be a Vector`);
+      const name = `vector ${i}`;
+      VectorCheck.isVector({ [name]: vector });
       const vectorLength = vectors[0].length;
-      assert(
-        vector.length === vectorLength,
-        `vector ${i + 1} does not have the correct length (${vectorLength})`
-      );
+      VectorCheck.lengthEqualTo({ [name]: vector }, vectorLength);
     });
   }
 
   private checkOptions(options: GramSchmidtOptions): void {
-    assert(
-      typeof options === "object" && options !== null,
-      "options must be an object"
-    );
+    ObjectCheck.isObject({ options });
     const { extendBasisTo } = options;
-    assert(
-      extendBasisTo === undefined || typeof extendBasisTo === "number",
-      "extendBasisTo must be a number or undefined"
-    );
+    NumberCheck.isNumberOrUndefined({ extendBasisTo });
     if (extendBasisTo !== undefined) {
-      assert(
-        extendBasisTo > 0 && extendBasisTo <= this.vectorLengths,
-        `extendBasisTo must be greater than 0 and less than the vector lengths (${this.vectorLengths})`
-      );
+      NumberCheck.isGreaterThan({ extendBasisTo }, 0);
+      NumberCheck.isLessThanOrEqualTo({ extendBasisTo }, this.vectorLengths);
     }
   }
 }
